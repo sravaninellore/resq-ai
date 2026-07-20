@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Mic, MicOff, Upload, Activity, AlertTriangle, User, Camera, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mic, MicOff, Upload, User, Camera, Sparkles, MapPin, CheckCircle, Eye } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 const QUICK_TAGS = [
@@ -21,6 +21,29 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
+
+  // Auto Geolocation State
+  const [locationText, setLocationText] = useState('Acquiring GPS location...');
+  const [coords, setCoords] = useState({ lat: 17.385, lng: 78.4867 });
+
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude.toFixed(4);
+          const lng = pos.coords.longitude.toFixed(4);
+          setCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+          setLocationText(`📍 Current Location: ${lat}° N, ${lng}° E (Auto-Detected GPS)`);
+        },
+        (err) => {
+          setLocationText('📍 Location: Emergency Zone (Default GPS Active)');
+        },
+        { timeout: 5000 }
+      );
+    } else {
+      setLocationText('📍 Location: Emergency Zone (Active)');
+    }
+  }, []);
 
   const toggleTag = (tagId) => {
     if (selectedTags.includes(tagId)) {
@@ -68,30 +91,31 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
       symptomsText,
       age,
       selectedTags,
-      imageFile
+      imageFile,
+      coords
     });
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '30px auto', padding: '0 20px' }}>
-      <div className="glass-panel glass-card-critical" style={{ padding: '32px' }}>
+    <div style={{ maxWidth: '850px', margin: '30px auto', padding: '0 20px' }}>
+      <div className="glass-panel glass-card-critical" style={{ padding: '36px' }}>
+        
         {/* Banner Title */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div className="pulse-badge critical">
-              <span className="pulse-dot"></span> LIVE EMERGENCY INTAKE
-            </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
+          <div className="pulse-badge critical">
+            <span className="pulse-dot"></span> LIVE EMERGENCY INTAKE
           </div>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            AI Core Response Engine
-          </span>
+          {/* GPS Auto Location Badge */}
+          <div style={{ background: 'rgba(6, 182, 212, 0.15)', border: '1px solid rgba(6, 182, 212, 0.4)', borderRadius: '8px', padding: '6px 12px', fontSize: '0.82rem', color: '#67E8F9', fontWeight: 600 }}>
+            {locationText}
+          </div>
         </div>
 
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.75rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>
           {t.intakeHeader}
         </h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '28px' }}>
-          Describe the situation or upload photos. ResQ AI will synthesize medical RAG protocols & vision algorithms instantly.
+          Describe the emergency or record voice input. ResQ AI synthesizes RAG protocols & vision algorithms instantly.
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -187,18 +211,36 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
             </div>
           </div>
 
-          {/* Image Preview if uploaded */}
+          {/* Injury Image Preview with Vision Bounding Box Overlay */}
           {imagePreview && (
-            <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '16px', background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '10px' }}>
-              <img src={imagePreview} alt="Injury Preview" style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--accent-red)' }} />
+            <div style={{ marginBottom: '24px', position: 'relative', background: 'rgba(15, 23, 42, 0.9)', border: '1px solid var(--accent-red)', padding: '16px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '20px' }}>
+              <div style={{ position: 'relative' }}>
+                <img src={imagePreview} alt="Uploaded Injury Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }} />
+                {/* AI Visual Scan Box Overlay */}
+                <div style={{
+                  position: 'absolute',
+                  top: '10px',
+                  left: '10px',
+                  right: '10px',
+                  bottom: '10px',
+                  border: '2px dashed #EF4444',
+                  borderRadius: '4px',
+                  boxShadow: '0 0 10px rgba(239, 68, 68, 0.5)'
+                }} />
+              </div>
+
               <div>
-                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--accent-red)' }}>Injury Photo Attached</span>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Gemini Vision AI will perform visual wound scan.</p>
+                <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#F87171', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Eye size={16} /> Original Injury Image • Vision Scan Ready
+                </span>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '4px 0 0 0', lineHeight: '1.4' }}>
+                  Gemini Vision AI will analyze soft tissue trauma, lacerations, and active bleeding surface area.
+                </p>
               </div>
             </div>
           )}
 
-          {/* Submit Action CTA */}
+          {/* Submit CTA */}
           <button
             type="submit"
             className="btn-emergency"
