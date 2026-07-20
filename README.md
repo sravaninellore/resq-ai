@@ -13,17 +13,19 @@ During medical emergencies, road accidents, or natural disasters, victim panic a
 
 ---
 
-## 🧠 AI Architecture Diagram
+## 🧠 AI Pipeline Architecture
 
 ```
 +-------------------------------------------------------------------------------+
 |                             RESQ AI FRONTEND (React + Vite)                   |
 | - Multimodal Intake (Text, Age, Tags, Speech-to-Text Voice, Injury Photo)     |
+| - One-Click Demo Emergency Scenarios (Road Accident, Burn, Snake Bite, Heart) |
 | - GPS Geolocation Auto-Detection & Interactive Hospital Finder               |
 | - Real-Time AI Processing Radar with 5-Step Checklist                         |
-| - Emergency Severity Dashboard with AI Confidence Score & "Why AI Predicted"  |
-| - Interactive Timeline (Intake -> AI Triage -> First Aid -> ER Routing)        |
-| - Offline First Aid Cache & Multilingual Toggle (EN, HI, TE, ES)               |
+| - Emergency Severity Dashboard with AI Confidence Score & Risk Factors        |
+| - Emergency Case ID Generator (e.g. RQ-2026-89421)                            |
+| - Doctor-Scannable Emergency QR Code & ReportLab PDF Download                 |
+| - Offline First Aid Cache & Multilingual Toggle (EN, HI, TE, TA)               |
 +------------------------------------+------------------------------------------+
                                      | REST API / JSON
                                      v
@@ -49,16 +51,19 @@ During medical emergencies, road accidents, or natural disasters, victim panic a
 ## ✨ Features That Win Hackathons
 
 1. ⚡ **Multimodal Emergency Intake**: Text, symptom chips, patient age, speech-to-text voice input, and trauma photo upload.
-2. 📍 **Automatic Geolocation Detection**: `navigator.geolocation` auto-detects user coordinates to calculate nearest trauma center distance and ETA.
-3. 🫀 **AI Severity & Confidence Score**: Displays `CRITICAL` (96% Confidence), `HIGH`, `MEDIUM`, or `LOW` with color-coded pulse badges.
-4. 🔍 **"WHY AI Predicted This" Rationale Panel**: Transparent reasoning checklist showing exact clinical triggers.
-5. 📊 **Interactive Incident Timeline**: Visual 5-step progress line tracking patient intake to hospital handover.
-6. 📄 **Doctor-Ready Emergency PDF Summary**: Downloadable formal PDF report generated using `ReportLab`.
-7. 📲 **Scannable Emergency QR Code**: Generates a mobile QR code on the dashboard for instant ER doctor report lookup.
-8. 🚑 **Emergency Contacts & Dispatch Bar**: Direct call buttons for **108 Ambulance**, **100 Police**, **Family Contact Alert**, and **Share Location**.
-9. 🌍 **Offline First Aid Quick-Guide**: Client-cached emergency guidance interface for disaster zones without internet access.
-10. 🌐 **Multilingual Support**: Instant toggle between **English (EN), Hindi (HI), Telugu (TE), and Tamil (TA)**.
-11. ⚖️ **Medical AI Safety Disclaimer**: Prominent clinical safety notice on all outputs.
+2. ⚡ **One-Click Demo Emergency Scenarios**: Preset buttons for **Road Accident**, **Child Burn**, **Snake Bite**, **Heart Attack**, and **Stroke** for instant 1-click testing.
+3. 📍 **Automatic Geolocation Detection**: `navigator.geolocation` auto-detects user coordinates to calculate nearest trauma center distance and ETA.
+4. 🫀 **AI Severity & Confidence Score**: Displays `CRITICAL` (96% Confidence), `HIGH`, `MEDIUM`, or `LOW` with color-coded pulse badges.
+5. 🔍 **"WHY AI Predicted This" Rationale Panel**: Transparent reasoning checklist showing exact clinical triggers and risk factor breakdown.
+6. 🏷️ **Official Emergency Case ID**: Unique tracking identifier (e.g., `RQ-2026-89421`) on Dashboard, PDF, and QR Code.
+7. 📊 **Interactive Incident Timeline**: Visual 5-step progress line tracking patient intake to hospital handover.
+8. 📄 **Doctor-Ready Emergency PDF Summary**: Downloadable formal PDF report generated using `ReportLab`.
+9. 📲 **Scannable Emergency QR Code**: Generates a mobile QR code on the dashboard for instant ER doctor report lookup.
+10. 🚑 **Emergency Contacts & Dispatch Bar**: Direct call buttons for **108 Ambulance**, **100 Police**, **Family Contact Alert**, and **Share Location**.
+11. 🏥 **Hospital Match Reasoning**: Displays explicit reasons why each hospital was matched (*Level 1 Trauma Unit, 1.8 km away, 4 min ETA*).
+12. 🌍 **Offline First Aid Quick-Guide**: Client-cached emergency guidance interface for disaster zones without internet access.
+13. 🌐 **Multilingual Support**: Instant toggle between **English (EN), Hindi (HI), Telugu (TE), and Tamil (TA)**.
+14. ⚖️ **Medical AI Safety Disclaimer**: Prominent clinical safety notice on all outputs.
 
 ---
 
@@ -100,7 +105,7 @@ resq-ai/
         ├── App.jsx               # Application view router & state
         ├── index.css             # Emergency theme design system
         ├── components/
-        │   ├── LandingPage.jsx   # Hero section & Statistics counter
+        │   ├── LandingPage.jsx   # Hero section, AI Pipeline & Future Scope
         │   ├── Header.jsx        # Top Navbar & SOS Hotline
         │   ├── EmergencyForm.jsx # Geolocation & Multimodal Intake
         │   ├── AnalysisLoader.jsx# 5-Step AI Processing Radar
@@ -108,7 +113,8 @@ resq-ai/
         │   ├── HospitalFinder.jsx# Hospital Routing & Map Route Widget
         │   └── OfflineGuide.jsx  # Client-cached offline search
         └── utils/
-            └── translations.js   # Multilingual dictionary
+            ├── translations.js   # Multilingual dictionary
+            └── qrHelper.js       # Mobile QR Code generator
 ```
 
 ---
@@ -130,6 +136,15 @@ npm install
 npm run dev
 ```
 *Frontend runs on `http://localhost:5173`*
+
+---
+
+## 🔮 Future Scope & Enterprise Roadmap
+
+- ⌚ **Wearable Telemetry Integration**: Real-time Apple Watch & Garmin heart rate & SpO2 streaming during transit.
+- 🚑 **Ambulance Telemetry Handover**: Live pre-hospital vital signs dashboard for ER doctors.
+- 📱 **Offline Edge LLM**: On-device quantized Llama-3 8B model for zero-network disaster zones.
+- 🩺 **Hospital ER Intake Portal**: Dedicated physician dashboard with active patient queuing.
 
 ---
 

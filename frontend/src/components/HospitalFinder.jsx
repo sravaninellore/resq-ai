@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Building2, Navigation, Phone, MapPin, CheckCircle, Compass } from 'lucide-react';
+import { Building2, Navigation, Phone, MapPin, CheckCircle, Compass, ShieldCheck } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 export default function HospitalFinder({ currentLang, severity = "CRITICAL", coords = { lat: 17.385, lng: 78.4867 } }) {
@@ -24,7 +24,12 @@ export default function HospitalFinder({ currentLang, severity = "CRITICAL", coo
             eta_mins: 4,
             address: "450 Emergency Blvd",
             phone: "+1 (800) 555-RESQ",
-            status: "IMMEDIATE ER ACCEPTANCE"
+            status: "IMMEDIATE ER ACCEPTANCE",
+            match_reasons: [
+              "Level 1 Comprehensive Trauma Center with 24/7 Neurosurgery ER",
+              "1.8 km away (4 min estimated transit time)",
+              "Active ER capacity with immediate bed acceptance"
+            ]
           },
           {
             id: "h2",
@@ -34,7 +39,12 @@ export default function HospitalFinder({ currentLang, severity = "CRITICAL", coo
             eta_mins: 8,
             address: "120 Medical Park Drive",
             phone: "+1 (800) 555-9111",
-            status: "ACCEPTED - LOW WAIT"
+            status: "ACCEPTED - LOW WAIT",
+            match_reasons: [
+              "Specialized Cardiac ICU & Emergency Resuscitation Unit",
+              "3.4 km away (8 min transit time)",
+              "Low ER wait times for acute chest distress"
+            ]
           }
         ]);
         setLoading(false);
@@ -104,7 +114,7 @@ export default function HospitalFinder({ currentLang, severity = "CRITICAL", coo
         {loading ? (
           <p style={{ color: 'var(--text-muted)' }}>Locating nearby emergency centers...</p>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
             {hospitals.map((h) => (
               <div 
                 key={h.id}
@@ -135,6 +145,21 @@ export default function HospitalFinder({ currentLang, severity = "CRITICAL", coo
                   <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '0 0 8px 0' }}>
                     {h.type}
                   </p>
+
+                  {/* Recommended Because Rationale Box */}
+                  <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '10px', margin: '10px 0' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
+                      <ShieldCheck size={12} /> Recommended Because:
+                    </span>
+                    {h.match_reasons ? h.match_reasons.map((mr, mIdx) => (
+                      <p key={mIdx} style={{ fontSize: '0.78rem', color: '#CBD5E1', margin: '2px 0' }}>
+                        ✓ {mr}
+                      </p>
+                    )) : (
+                      <p style={{ fontSize: '0.78rem', color: '#CBD5E1', margin: 0 }}>✓ Level 1 Trauma ER • {h.distance_km} km away</p>
+                    )}
+                  </div>
+
                   <p style={{ fontSize: '0.8rem', color: '#94A3B8', margin: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <MapPin size={14} /> {h.address}
                   </p>

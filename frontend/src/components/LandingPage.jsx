@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, Zap, Globe, Building2, FileCheck, ArrowRight, Activity, Cpu, Database, PhoneCall, BookOpen } from 'lucide-react';
+import { ShieldAlert, Zap, Globe, Building2, FileCheck, ArrowRight, Activity, Cpu, Database, PhoneCall, BookOpen, Layers, Rocket, ShieldCheck } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 export default function LandingPage({ currentLang, onStart, onOfflineGuide }) {
@@ -7,6 +7,7 @@ export default function LandingPage({ currentLang, onStart, onOfflineGuide }) {
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '40px 20px' }}>
+      
       {/* Hero Section */}
       <div className="glass-panel glass-card-critical" style={{ padding: '48px 36px', textAlign: 'center', marginBottom: '40px', position: 'relative', overflow: 'hidden' }}>
         
@@ -110,6 +111,31 @@ export default function LandingPage({ currentLang, onStart, onOfflineGuide }) {
         </div>
       </div>
 
+      {/* DEDICATED AI PIPELINE SECTION FOR JUDGES */}
+      <div className="glass-panel" style={{ padding: '36px', marginBottom: '50px' }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Layers size={26} color="var(--accent-cyan)" /> How The AI Pipeline Operates
+        </h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '28px' }}>
+          Transparent multimodal AI architecture combining computer vision, RAG vector retrieval, and LLM clinical scoring.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '12px', textAlign: 'center' }}>
+          {[
+            { step: "1. Intake Data", detail: "Symptoms + Image + GPS" },
+            { step: "2. Vision Scan", detail: "Gemini 2.0 Wound Model" },
+            { step: "3. RAG Search", detail: "WHO & Red Cross Vector DB" },
+            { step: "4. Severity Model", detail: "Clinical Risk Classifier" },
+            { step: "5. ER Summary", detail: "PDF & QR Code Handover" }
+          ].map((item, idx) => (
+            <div key={idx} style={{ background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '12px', padding: '16px 12px' }}>
+              <span style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>{item.step}</span>
+              <p style={{ fontSize: '0.8rem', color: '#E2E8F0', margin: '4px 0 0 0' }}>{item.detail}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Feature Grid */}
       <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.75rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', textAlign: 'center' }}>
         Built For Real-World Emergency Decision Making
@@ -124,7 +150,7 @@ export default function LandingPage({ currentLang, onStart, onOfflineGuide }) {
             Multimodal Injury Vision Scan
           </h3>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-            Upload wound or trauma photos for Gemini Vision AI to identify soft tissue damage and acute hemorrhage risks.
+            Upload wound or trauma photos for Gemini Vision AI to identify soft tissue damage and active hemorrhage risks.
           </p>
         </div>
 
@@ -152,6 +178,39 @@ export default function LandingPage({ currentLang, onStart, onOfflineGuide }) {
           </p>
         </div>
       </div>
+
+      {/* FUTURE SCOPE ROADMAP SECTION */}
+      <div className="glass-panel" style={{ padding: '36px' }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Rocket size={26} color="var(--accent-amber)" /> Future Scope & Production Roadmap
+        </h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '24px' }}>
+          Planned enterprise enhancements beyond the hackathon prototype:
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+          <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '16px' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#FCD34D', margin: '0 0 4px 0' }}>⌚ Wearable Telemetry</h4>
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0 }}>Apple Watch & Garmin vital signs stream (Heart Rate & SpO2)</p>
+          </div>
+
+          <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '16px' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#FCD34D', margin: '0 0 4px 0' }}>🚑 Ambulance Telemetry</h4>
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0 }}>Real-time GPS tracking and live vital sign stream to ER doctors</p>
+          </div>
+
+          <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '16px' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#FCD34D', margin: '0 0 4px 0' }}>📱 Offline Edge LLM</h4>
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0 }}>On-device quantized Llama-3 8B model for zero-network zones</p>
+          </div>
+
+          <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '16px' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#FCD34D', margin: '0 0 4px 0' }}>🩺 Physician ER Dashboard</h4>
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0 }}>Hospital triage intake portal with live patient queuing</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }

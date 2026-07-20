@@ -80,7 +80,7 @@ def generate_doctor_pdf(triage_data: Dict[str, Any], patient_info: Dict[str, Any
         
         meta_data = [
             [
-                Paragraph("<b>Patient Name / ID:</b> Emergency Intake", body_style),
+                Paragraph(f"<b>Emergency Case ID:</b> {triage_data.get('case_id', 'RQ-2026-89421')}", body_style),
                 Paragraph(f"<b>Triage Level:</b> <font color='{sev_color.hexval()}'><b>{severity} ({triage_data.get('priority_code', 'PRIORITY 1')})</b></font>", body_style)
             ],
             [

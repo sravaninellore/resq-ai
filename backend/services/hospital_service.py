@@ -11,7 +11,12 @@ MOCK_HOSPITALS = [
         "phone": "+1 (800) 555-RESQ",
         "emergency_beds": 12,
         "specialties": ["Trauma", "Neurosurgery", "Cardiology", "Burn Care"],
-        "status": "IMMEDIATE ER ACCEPTANCE"
+        "status": "IMMEDIATE ER ACCEPTANCE",
+        "match_reasons": [
+            "Level 1 Comprehensive Trauma Center with 24/7 Neurosurgery ER",
+            "1.8 km away (4 min estimated transit time)",
+            "Active ER capacity with immediate bed acceptance"
+        ]
     },
     {
         "id": "hosp_2",
@@ -23,7 +28,12 @@ MOCK_HOSPITALS = [
         "phone": "+1 (800) 555-9111",
         "emergency_beds": 6,
         "specialties": ["Cardiology", "ICU", "Internal Medicine"],
-        "status": "ACCEPTED - LOW WAIT"
+        "status": "ACCEPTED - LOW WAIT",
+        "match_reasons": [
+            "Specialized Cardiac ICU & Emergency Resuscitation Unit",
+            "3.4 km away (8 min transit time)",
+            "Low ER wait times for acute chest distress"
+        ]
     },
     {
         "id": "hosp_3",
@@ -35,7 +45,12 @@ MOCK_HOSPITALS = [
         "phone": "+1 (800) 555-CARE",
         "emergency_beds": 18,
         "specialties": ["Pediatric ER", "General Surgery", "Orthopedics"],
-        "status": "OPEN"
+        "status": "OPEN",
+        "match_reasons": [
+            "Dedicated Pediatric ER & General Surgical Unit",
+            "5.1 km away (12 min transit time)",
+            "Open for non-life-threatening urgent care triage"
+        ]
     }
 ]
 
@@ -46,7 +61,6 @@ def get_nearby_hospitals(severity: str = "CRITICAL", lat: float = None, lng: flo
     hospitals = MOCK_HOSPITALS.copy()
     
     if severity == "CRITICAL":
-        # Sort trauma centers first
         hospitals.sort(key=lambda x: (x["distance_km"], "Level 1" not in x["type"]))
     else:
         hospitals.sort(key=lambda x: x["distance_km"])

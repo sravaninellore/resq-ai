@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mic, MicOff, Upload, User, Camera, Sparkles, MapPin, CheckCircle, Eye } from 'lucide-react';
+import { Mic, MicOff, Upload, User, Camera, Sparkles, MapPin, Eye, Zap } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 const QUICK_TAGS = [
@@ -10,6 +10,39 @@ const QUICK_TAGS = [
   { id: 'burn', label: '🔥 Thermal Burn' },
   { id: 'unconscious', label: '⚠️ Unconscious' },
   { id: 'choking', label: '🫁 Choking / Gasping' }
+];
+
+const PRESET_SCENARIOS = [
+  {
+    title: '🚗 Road Accident',
+    text: 'Motorcycle collision victim. Profuse scalp bleeding, severe headache, dizziness, age 42. Pulse rapid.',
+    age: 42,
+    tags: ['bleeding', 'head_injury', 'fracture']
+  },
+  {
+    title: '👶 Child Burn',
+    text: 'Accidental hot water scald on right arm and chest. Blisters forming, intense pain, child age 6.',
+    age: 6,
+    tags: ['burn']
+  },
+  {
+    title: '🐍 Snake Bite',
+    text: 'Bitten on ankle by unknown snake in garden. Local swelling, fang puncture marks, nausea, age 35.',
+    age: 35,
+    tags: ['bleeding', 'unconscious']
+  },
+  {
+    title: '🫀 Heart Attack',
+    text: 'Acute crushing chest pain radiating to left arm, heavy sweating, shortness of breath, age 58.',
+    age: 58,
+    tags: ['chest_pain', 'choking']
+  },
+  {
+    title: '🧠 Stroke',
+    text: 'Sudden right-sided facial drooping, slurred speech, arm weakness, inability to speak clearly, age 67.',
+    age: 67,
+    tags: ['unconscious', 'head_injury']
+  }
 ];
 
 export default function EmergencyForm({ currentLang, onSubmit }) {
@@ -44,6 +77,12 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
       setLocationText('📍 Location: Emergency Zone (Active)');
     }
   }, []);
+
+  const applyScenario = (sc) => {
+    setSymptomsText(sc.text);
+    setAge(sc.age);
+    setSelectedTags(sc.tags);
+  };
 
   const toggleTag = (tagId) => {
     if (selectedTags.includes(tagId)) {
@@ -98,6 +137,36 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
 
   return (
     <div style={{ maxWidth: '850px', margin: '30px auto', padding: '0 20px' }}>
+      
+      {/* One-Click Preset Emergency Scenarios for Quick Demo */}
+      <div style={{
+        background: 'rgba(15, 23, 42, 0.9)',
+        border: '1px solid rgba(6, 182, 212, 0.3)',
+        borderRadius: '14px',
+        padding: '16px 20px',
+        marginBottom: '24px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+          <Zap size={18} color="var(--accent-cyan)" />
+          <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#FFFFFF' }}>
+            ⚡ One-Click Demo Emergency Scenarios (Instant Fill):
+          </span>
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          {PRESET_SCENARIOS.map((sc, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className="btn-secondary"
+              onClick={() => applyScenario(sc)}
+              style={{ padding: '6px 12px', fontSize: '0.82rem', borderColor: 'rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.05)' }}
+            >
+              {sc.title}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="glass-panel glass-card-critical" style={{ padding: '36px' }}>
         
         {/* Banner Title */}
@@ -105,7 +174,6 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
           <div className="pulse-badge critical">
             <span className="pulse-dot"></span> LIVE EMERGENCY INTAKE
           </div>
-          {/* GPS Auto Location Badge */}
           <div style={{ background: 'rgba(6, 182, 212, 0.15)', border: '1px solid rgba(6, 182, 212, 0.4)', borderRadius: '8px', padding: '6px 12px', fontSize: '0.82rem', color: '#67E8F9', fontWeight: 600 }}>
             {locationText}
           </div>
@@ -115,7 +183,7 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
           {t.intakeHeader}
         </h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '28px' }}>
-          Describe the emergency or record voice input. ResQ AI synthesizes RAG protocols & vision algorithms instantly.
+          Describe the emergency or select a demo scenario above. ResQ AI synthesizes RAG protocols & vision algorithms instantly.
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -211,12 +279,11 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
             </div>
           </div>
 
-          {/* Injury Image Preview with Vision Bounding Box Overlay */}
+          {/* Injury Image Preview */}
           {imagePreview && (
             <div style={{ marginBottom: '24px', position: 'relative', background: 'rgba(15, 23, 42, 0.9)', border: '1px solid var(--accent-red)', padding: '16px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '20px' }}>
               <div style={{ position: 'relative' }}>
                 <img src={imagePreview} alt="Uploaded Injury Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }} />
-                {/* AI Visual Scan Box Overlay */}
                 <div style={{
                   position: 'absolute',
                   top: '10px',
