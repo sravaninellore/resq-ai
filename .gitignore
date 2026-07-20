@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Build Outputs
+dist/
+frontend/dist/
+build/
+
+# Local Environment Variables
+.env
+backend/.env
+
+# OS Files
+.DS_Store
+Thumbs.db
