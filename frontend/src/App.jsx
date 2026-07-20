@@ -177,7 +177,7 @@ export default function App() {
         color: 'var(--text-muted)',
         fontSize: '0.85rem'
       }}>
-        ResQ AI Emergency Crisis Response Platform • Built for Hackathon Excellence
+        ResQ AI Emergency Crisis Response Platform • Built by Sravani
       </footer>
     </div>
   );
