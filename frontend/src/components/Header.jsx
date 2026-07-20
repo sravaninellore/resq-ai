@@ -115,7 +115,7 @@ export default function Header({ currentLang, setLang, isOnline, onViewChange, c
               <option value="EN" style={{ background: '#111827' }}>English (EN)</option>
               <option value="HI" style={{ background: '#111827' }}>हिंदी (HI)</option>
               <option value="TE" style={{ background: '#111827' }}>తెలుగు (TE)</option>
-              <option value="ES" style={{ background: '#111827' }}>Español (ES)</option>
+              <option value="TA" style={{ background: '#111827' }}>தமிழ் (TA)</option>
             </select>
           </div>
         </div>

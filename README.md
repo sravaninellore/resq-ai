@@ -57,7 +57,7 @@ During medical emergencies, road accidents, or natural disasters, victim panic a
 7. 📲 **Scannable Emergency QR Code**: Generates a mobile QR code on the dashboard for instant ER doctor report lookup.
 8. 🚑 **Emergency Contacts & Dispatch Bar**: Direct call buttons for **108 Ambulance**, **100 Police**, **Family Contact Alert**, and **Share Location**.
 9. 🌍 **Offline First Aid Quick-Guide**: Client-cached emergency guidance interface for disaster zones without internet access.
-10. 🌐 **Multilingual Support**: Instant toggle between **English (EN), Hindi (HI), Telugu (TE), and Spanish (ES)**.
+10. 🌐 **Multilingual Support**: Instant toggle between **English (EN), Hindi (HI), Telugu (TE), and Tamil (TA)**.
 11. ⚖️ **Medical AI Safety Disclaimer**: Prominent clinical safety notice on all outputs.
 
 ---

@@ -81,7 +81,7 @@ export default function LandingPage({ currentLang, onStart, onOfflineGuide }) {
             4 Languages
           </h3>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
-            EN, Hindi, Telugu & Spanish
+            EN, Hindi, Telugu & Tamil
           </p>
         </div>
 

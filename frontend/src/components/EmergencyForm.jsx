@@ -68,7 +68,7 @@ export default function EmergencyForm({ currentLang, onSubmit }) {
     }
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
-    recognition.lang = currentLang === 'HI' ? 'hi-IN' : currentLang === 'TE' ? 'te-IN' : 'en-US';
+    recognition.lang = currentLang === 'HI' ? 'hi-IN' : currentLang === 'TE' ? 'te-IN' : currentLang === 'TA' ? 'ta-IN' : 'en-US';
     
     if (!isRecording) {
       recognition.start();
